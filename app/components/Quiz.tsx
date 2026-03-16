@@ -174,7 +174,7 @@ export default function Quiz() {
                                         nome: e.target.value
                                     }))
                                 }
-                                className="w-full border border-gray-200 p-4 rounded-xl"
+                               className="w-full border border-gray-200 p-4 rounded-xl text-base"
                             />
 
                             <input
@@ -186,7 +186,7 @@ export default function Quiz() {
                                         data_visita: e.target.value
                                     }))
                                 }
-                                className="w-full border border-gray-200 p-4 rounded-xl"
+                               className="w-full border border-gray-200 p-4 rounded-xl text-base"
                             />
 
                             <button
@@ -272,12 +272,12 @@ export default function Quiz() {
                         >
 
                             <h1 className="text-3xl font-semibold">
-                              Ficamos muito felizes que você gostou! 💛
+                                Ficamos muito felizes que você gostou! 💛
                             </h1>
 
                             <p className="text-gray-500">
                                 Seu comentário no Google ajuda
-muitas pessoas a descobrirem o Picasso.
+                                muitas pessoas a descobrirem o Picasso.
                             </p>
 
                             <motion.a
@@ -287,7 +287,7 @@ muitas pessoas a descobrirem o Picasso.
                                 target="_blank"
                                 className="inline-block border border-picasso-gold text-picasso-gold px-8 py-4 rounded-full hover:bg-picasso-gold hover:text-black transition"
                             >
-                               ⭐ Deixar avaliação no Google
+                                ⭐ Deixar avaliação no Google
                             </motion.a>
 
                             <button
@@ -401,7 +401,7 @@ function PerguntaTexto({
             <textarea
                 value={texto}
                 onChange={(e) => setTexto(e.target.value)}
-                className="w-full border border-gray-200 p-4 rounded-xl"
+                className="w-full border border-gray-200 p-4 rounded-xl text-base"
                 rows={3}
             />
 
