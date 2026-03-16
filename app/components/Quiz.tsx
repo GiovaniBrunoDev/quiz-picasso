@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
+import { ptBR } from "date-fns/locale";
 
 export default function Quiz() {
 
@@ -97,41 +100,73 @@ export default function Quiz() {
                             initial={{ opacity: 0, y: 40 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0 }}
-                            className="text-center space-y-8"
+                            className="text-center space-y-10 max-w-md mx-auto"
                         >
 
                             <Image
                                 src="/logo-picasso.png"
                                 alt="Picasso"
-                                width={180}
-                                height={80}
+                                width={200}
+                                height={90}
                                 className="mx-auto"
                             />
 
-                            <div className="w-16 h-[2px] bg-picasso-gold mx-auto"></div>
+                            <div className="w-20 h-[2px] bg-picasso-gold mx-auto opacity-70"></div>
 
-                            <p className="text-gray-600">
-                                Avalie sua experiência e receba
-                            </p>
+                            <div className="space-y-4">
 
-                            <h2 className="text-3xl text-picasso-gold font-semibold">
-                                um drink especial
-                            </h2>
+                                <p className="text-gray-500 text-sm tracking-wide uppercase">
+                                    Sua opinião é importante
+                                </p>
 
-                            <p className="text-gray-400 text-sm">
-                                Apenas 6 perguntas • 2 minutos
-                            </p>
+                                <h1 className="text-3xl sm:text-4xl font-semibold leading-tight">
+                                    Avalie sua experiência
+                                    <span className="block text-picasso-gold mt-1">
+                                        e ganhe um brinde.
+                                    </span>
+                                </h1>
+
+                                <p className="text-gray-400 text-sm">
+                                    Leva menos de 2 minutos para responder.
+                                </p>
+
+                            </div>
+
+                            <div className="flex justify-center">
+
+                                <div className="flex items-center gap-2 text-xs text-gray-400 bg-gray-50 px-4 py-2 rounded-full border border-gray-200">
+                                    <span>⚡ 6 perguntas</span>
+                                    <span>•</span>
+                                    <span>⏱ 2 minutos</span>
+                                </div>
+
+                            </div>
 
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.97 }}
+                                whileTap={{ scale: 0.96 }}
                                 onClick={next}
-                                className="border border-picasso-gold text-picasso-gold px-8 py-4 rounded-full hover:bg-picasso-gold hover:text-black transition"
+                                className="
+    mt-4
+    border
+    border-picasso-gold
+    text-picasso-gold
+    px-10
+    py-4
+    rounded-full
+    text-base
+    font-medium
+    hover:bg-picasso-gold
+    hover:text-black
+    transition
+    shadow-sm
+    "
                             >
-                                Iniciar Avaliação
+                                Iniciar avaliação
                             </motion.button>
 
                         </motion.div>
+
                     )}
 
                     {step === 1 && (
@@ -165,17 +200,35 @@ export default function Quiz() {
                                 className="w-full border border-gray-200 p-4 rounded-xl text-base"
                             />
 
-                            <input
-                                type="date"
-                                value={respostas.data_visita}
-                                onChange={(e) =>
-                                    setRespostas((prev) => ({
-                                        ...prev,
-                                        data_visita: e.target.value
-                                    }))
-                                }
-                                className="w-full border border-gray-200 p-4 rounded-xl text-base"
-                            />
+                            <div className="space-y-3">
+
+  <p className="text-sm text-gray-500 text-left">
+    Quando foi sua visita ao restaurante?
+  </p>
+
+  <div className="border border-gray-200 rounded-xl p-3 flex justify-center">
+
+    <DayPicker
+      mode="single"
+      locale={ptBR}
+      selected={respostas.data_visita ? new Date(respostas.data_visita) : undefined}
+      onSelect={(date) => {
+        if (!date) return;
+
+        setRespostas((prev) => ({
+          ...prev,
+          data_visita: date.toISOString().split("T")[0]
+        }));
+      }}
+    />
+
+  </div>
+
+  <p className="text-xs text-gray-400 text-left">
+    Selecione o dia da sua visita.
+  </p>
+
+</div>
 
                             <button
                                 onClick={next}
