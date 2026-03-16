@@ -1,17 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/dist/style.css";
-import { ptBR } from "date-fns/locale";
+
+
 
 export default function Quiz() {
 
+
     const [enviando, setEnviando] = useState(false);
     const [step, setStep] = useState(0);
+    const [mostrarCalendario, setMostrarCalendario] = useState(false);
+    const [opcaoData, setOpcaoData] = useState("");
     const totalSteps = 8;
+    const dateRef = useRef<HTMLInputElement | null>(null);
 
     const [respostas, setRespostas] = useState({
         nome: "",
@@ -202,33 +205,108 @@ export default function Quiz() {
 
                             <div className="space-y-3">
 
-  <p className="text-sm text-gray-500 text-left">
-    Quando foi sua visita ao restaurante?
-  </p>
+                                <p className="text-sm text-gray-500 text-left">
+                                    Quando foi sua visita ao restaurante?
+                                </p>
 
-  <div className="border border-gray-200 rounded-xl p-3 flex justify-center">
+                                <div className="flex gap-2">
 
-    <DayPicker
-      mode="single"
-      locale={ptBR}
-      selected={respostas.data_visita ? new Date(respostas.data_visita) : undefined}
-      onSelect={(date) => {
-        if (!date) return;
+                                    {/* HOJE */}
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            const hoje = new Date().toISOString().split("T")[0];
 
-        setRespostas((prev) => ({
-          ...prev,
-          data_visita: date.toISOString().split("T")[0]
-        }));
-      }}
-    />
+                                            setRespostas((prev) => ({
+                                                ...prev,
+                                                data_visita: hoje
+                                            }));
 
-  </div>
+                                            setOpcaoData("hoje");
+                                            setMostrarCalendario(false);
+                                        }}
+                                        className={`flex-1 py-3 rounded-xl text-sm border transition
+      ${opcaoData === "hoje"
+                                                ? "bg-picasso-gold text-black border-picasso-gold"
+                                                : "border-gray-200 hover:border-picasso-gold"
+                                            }`}
+                                    >
+                                        Hoje
+                                    </button>
 
-  <p className="text-xs text-gray-400 text-left">
-    Selecione o dia da sua visita.
-  </p>
+                                    {/* ONTEM */}
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            const ontem = new Date();
+                                            ontem.setDate(ontem.getDate() - 1);
 
-</div>
+                                            setRespostas((prev) => ({
+                                                ...prev,
+                                                data_visita: ontem.toISOString().split("T")[0]
+                                            }));
+
+                                            setOpcaoData("ontem");
+                                            setMostrarCalendario(false);
+                                        }}
+                                        className={`flex-1 py-3 rounded-xl text-sm border transition
+      ${opcaoData === "ontem"
+                                                ? "bg-picasso-gold text-black border-picasso-gold"
+                                                : "border-gray-200 hover:border-picasso-gold"
+                                            }`}
+                                    >
+                                        Ontem
+                                    </button>
+
+                                    {/* OUTRA DATA */}
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setOpcaoData("outra");
+                                            setMostrarCalendario(true);
+
+                                            setTimeout(() => {
+                                                (dateRef.current as HTMLInputElement)?.showPicker?.();
+                                            }, 50);
+                                        }}
+                                    >
+                                        Outra data
+                                    </button>
+
+                                </div>
+
+                                {mostrarCalendario && (
+                                    <input
+                                        ref={dateRef}
+                                        type="date"
+                                        value={respostas.data_visita}
+                                        onChange={(e) =>
+                                            setRespostas((prev) => ({
+                                                ...prev,
+                                                data_visita: e.target.value
+                                            }))
+                                        }
+                                        className="
+      w-full
+      border
+      border-gray-200
+      p-4
+      rounded-xl
+      text-base
+      bg-white
+      focus:outline-none
+      focus:border-picasso-gold
+      focus:ring-1
+      focus:ring-picasso-gold
+      "
+                                    />
+                                )}
+
+                                <p className="text-xs text-gray-400 text-left">
+                                    Isso nos ajuda a identificar melhor sua experiência.
+                                </p>
+
+                            </div>
 
                             <button
                                 onClick={next}

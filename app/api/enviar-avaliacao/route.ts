@@ -2,57 +2,91 @@ import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
 
-  const data = await req.json();
+    const data = await req.json();
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "giovanebruno100@gmail.com",
-      pass: "pcit vjys cssy zhfy"
-    }
-  });
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: "giovanebruno100@gmail.com",
+            pass: "pcit vjys cssy zhfy"
+        }
+    });
 
-  const html = `
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:30px 0;font-family:Arial,Helvetica,sans-serif">
+    const html = `
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6;padding:40px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial">
+
 <tr>
 <td align="center">
 
-<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,0.08)">
+<table width="640" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.08)">
+
+<!-- HEADER MODERNO -->
+<tr>
+<td style="
+background:linear-gradient(135deg,#ffffff,#f7f7f7);
+padding:30px;
+text-align:center;
+border-bottom:1px solid #eee
+">
+
+<img 
+src="/logo-picasso.png" 
+width="140"
+style="display:block;margin:auto;margin-bottom:10px"
+/>
+
+<h1 style="
+margin:0;
+font-size:24px;
+color:#111;
+font-weight:600
+">
+Nova avaliação recebida
+</h1>
+
+<p style="
+margin:6px 0 0;
+color:#777;
+font-size:13px
+">
+Feedback automático de clientes
+</p>
+
+</td>
+</tr>
+
+<!-- CLIENT INFO -->
+<tr>
+<td style="padding:35px">
+
+<table width="100%" cellpadding="10" cellspacing="0" style="font-size:15px">
 
 <tr>
-<td style="background:#111;padding:25px;text-align:center;color:white">
-<h1 style="margin:0;font-size:24px">🍸 Nova Avaliação</h1>
-<p style="margin:5px 0 0;font-size:13px;color:#bbb">Picasso Bar</p>
+<td style="color:#888;width:200px">Cliente</td>
+<td style="font-weight:600;color:#111">
+${data.nome || "Não informado"}
 </td>
 </tr>
 
 <tr>
-<td style="padding:30px">
-
-<table width="100%" cellpadding="8" cellspacing="0">
-
-<tr>
-<td style="color:#888;font-size:14px">Cliente</td>
-<td style="font-weight:bold">${data.nome || "Não informado"}</td>
+<td style="color:#888">Data da visita</td>
+<td style="font-weight:600;color:#111">
+${data.data_visita || "Não informado"}
+</td>
 </tr>
 
 <tr>
-<td style="color:#888;font-size:14px">Data da visita</td>
-<td style="font-weight:bold">${data.data_visita || "Não informado"}</td>
-</tr>
-
-<tr>
-<td style="color:#888;font-size:14px">Conheceu por</td>
+<td style="color:#888">Conheceu por</td>
 <td>${data.origem_cliente}</td>
 </tr>
 
 <tr>
-<td style="color:#888;font-size:14px">Frequência</td>
+<td style="color:#888">Frequência</td>
 <td>${data.frequencia}</td>
 </tr>
 
 <tr>
-<td style="color:#888;font-size:14px">Expectativa</td>
+<td style="color:#888">Expectativa</td>
 <td>${data.expectativa}</td>
 </tr>
 
@@ -61,26 +95,34 @@ export async function POST(req: Request) {
 </td>
 </tr>
 
+<!-- SCORE -->
 <tr>
-<td style="padding:0 30px">
+<td style="padding:0 35px 30px 35px">
 
 <div style="
-background:#fafafa;
-border-radius:10px;
-padding:20px;
+background:linear-gradient(135deg,#fafafa,#f1f1f1);
+border-radius:16px;
+padding:35px;
 text-align:center;
-margin-bottom:25px;
+border:1px solid #eee
 ">
 
-<p style="margin:0;color:#777;font-size:13px">Avaliação da experiência</p>
+<p style="margin:0;color:#777;font-size:13px">
+Avaliação da experiência
+</p>
 
 <p style="
-margin:5px 0 0;
-font-size:28px;
-font-weight:bold;
-color:#111
+margin:10px 0 0;
+font-size:46px;
+font-weight:700;
+color:#111;
+letter-spacing:-1px
 ">
 ${data.avaliacao}
+</p>
+
+<p style="margin:5px 0 0;font-size:12px;color:#999">
+Escala de 0 a 10
 </p>
 
 </div>
@@ -88,30 +130,43 @@ ${data.avaliacao}
 </td>
 </tr>
 
+<!-- POSITIVOS -->
 <tr>
-<td style="padding:0 30px">
+<td style="padding:0 35px">
 
-<h3 style="margin-bottom:8px">👍 Pontos positivos</h3>
+<h3 style="font-size:16px;margin-bottom:12px">
+👍 O que o cliente gostou
+</h3>
 
 <div style="
-background:#f8f8f8;
-padding:15px;
-border-radius:8px;
+background:#f9fafb;
+padding:20px;
+border-radius:12px;
+border:1px solid #eee;
 color:#444;
-line-height:1.5;
-margin-bottom:20px
+line-height:1.6
 ">
 ${data.positivos || "—"}
 </div>
 
-<h3 style="margin-bottom:8px">⚠️ Melhorias</h3>
+</td>
+</tr>
+
+<!-- MELHORIAS -->
+<tr>
+<td style="padding:25px 35px 35px 35px">
+
+<h3 style="font-size:16px;margin-bottom:12px">
+⚠️ O que pode melhorar
+</h3>
 
 <div style="
-background:#f8f8f8;
-padding:15px;
-border-radius:8px;
+background:#f9fafb;
+padding:20px;
+border-radius:12px;
+border:1px solid #eee;
 color:#444;
-line-height:1.5;
+line-height:1.6
 ">
 ${data.melhorias || "—"}
 </div>
@@ -119,17 +174,18 @@ ${data.melhorias || "—"}
 </td>
 </tr>
 
+<!-- FOOTER -->
 <tr>
 <td style="
-padding:20px;
+padding:28px;
 text-align:center;
 font-size:12px;
 color:#999;
 border-top:1px solid #eee
 ">
 
-Sistema de avaliações automático<br>
-Picasso Bar
+Sistema automático de feedback<br>
+Picasso Restaurante
 
 </td>
 </tr>
@@ -138,16 +194,17 @@ Picasso Bar
 
 </td>
 </tr>
+
 </table>
 `;
 
-  await transporter.sendMail({
-    from: "Avaliações Picasso <giovanebruno100@gmail.com>",
-    to: "calcisshoes@gmail.com",
-    subject: "🍸 Nova avaliação recebida",
-    html: html
-  });
+    await transporter.sendMail({
+        from: "Avaliações Picasso <giovanebruno100@gmail.com>",
+        to: "calcisshoes@gmail.com",
+        subject: "🍸 Nova avaliação recebida",
+        html: html
+    });
 
-  return Response.json({ ok: true });
+    return Response.json({ ok: true });
 
 }
