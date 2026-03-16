@@ -139,8 +139,7 @@ export default function Quiz() {
                             <div className="flex justify-center">
 
                                 <div className="flex items-center gap-2 text-xs text-gray-400 bg-gray-50 px-4 py-2 rounded-full border border-gray-200">
-                                    <span>⚡ 6 perguntas</span>
-                                    <span>•</span>
+
                                     <span>⏱ menos de 1 minuto</span>
                                 </div>
 
@@ -270,6 +269,11 @@ export default function Quiz() {
                                                 (dateRef.current as HTMLInputElement)?.showPicker?.();
                                             }, 50);
                                         }}
+                                        className={`flex-1 py-3 rounded-xl text-sm border transition
+        ${opcaoData === "outra"
+                                                ? "bg-picasso-gold text-black border-picasso-gold"
+                                                : "border-gray-200 hover:border-picasso-gold"
+                                            }`}
                                     >
                                         Outra data
                                     </button>
@@ -357,7 +361,7 @@ export default function Quiz() {
                         />
                     )}
 
-                    
+
                     {step === 5 && (
                         <Pergunta
                             titulo="Com que frequência você sai para jantar fora ou para happy hour por mês?"
@@ -430,6 +434,7 @@ export default function Quiz() {
                                 whileTap={{ scale: 0.97 }}
                                 href="https://www.google.com/search?sca_esv=d351541170fbfe96&sxsrf=ANbL-n7JaDVOcC_KArbHREa13ZvyTjzpFA:1773635283928&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOZ6ccwHXsTbL8VRQAM-zT105NhsjCxW9GYp5Pc8ywb9pogInt2Um_V6_lRNiuAL4XzffxNurKIMY5QhhZBcEa5LLx-6B1F9PksSoOgXEv5rpelKzWA%3D%3D&q=Restaurante+Picasso+Coment%C3%A1rios&sa=X&ved=2ahUKEwiw3LyoyqOTAxUQCrkGHZU4Hm4Q0bkNegQILRAF&biw=1920&bih=911&dpr=1#lrd=0x94f3d412f58ba4ed:0x28a6b8bf1e400383,3,,,,"
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 className="inline-block border border-picasso-gold text-picasso-gold px-8 py-4 rounded-full hover:bg-picasso-gold hover:text-black transition"
                             >
                                 ⭐ Deixar avaliação no Google
