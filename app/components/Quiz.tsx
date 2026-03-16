@@ -435,7 +435,7 @@ export default function Quiz() {
                             </motion.a>
 
                             <button
-                                onClick={() => setStep(8)}
+                                onClick={() => setStep(10)}
                                 className="block text-gray-400 text-sm underline mx-auto"
                             >
                                 Pular
