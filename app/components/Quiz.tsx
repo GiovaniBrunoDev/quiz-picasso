@@ -22,6 +22,7 @@ export default function Quiz() {
         origem_cliente: "",
         frequencia: "",
         expectativa: "",
+        saida_mensal: "",
         avaliacao: "",
         positivos: "",
         melhorias: ""
@@ -336,7 +337,7 @@ export default function Quiz() {
                             titulo="Com que frequência você vai ao Picasso?"
                             opcoes={[
                                 "Primeira vez",
-                                "Já Fui algumas vezes",
+                                "Já fui algumas vezes",
                                 "Sou cliente regular"
                             ]}
                             responder={(r: string) => salvarResposta("frequencia", r)}

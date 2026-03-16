@@ -13,23 +13,23 @@ export async function POST(req: Request) {
     });
 
     const html = `
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6;padding:40px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6;padding:20px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial;line-height:1.5;">
 
 <tr>
 <td align="center">
 
-<table width="640" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.08)">
+<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.08);">
 
 <!-- HEADER -->
 <tr>
-<td style="background:#111;padding:35px;text-align:center;color:white">
+<td style="background:#111;padding:25px;text-align:center;color:white">
 
-<h1 style="margin:0;font-size:28px;font-weight:600">
- ⭐ Nova avaliação recebida
+<h1 style="margin:0;font-size:24px;font-weight:600;line-height:1.2;">
+⭐ Nova avaliação recebida
 </h1>
 
-<p style="margin:8px 0 0;color:#bbb;font-size:13px">
-Picasso Bar • Feedback de clientes
+<p style="margin:6px 0 0;color:#bbb;font-size:12px;line-height:1.3;">
+Picasso Resturante • Feedback de clientes
 </p>
 
 </td>
@@ -37,37 +37,38 @@ Picasso Bar • Feedback de clientes
 
 <!-- CLIENT INFO -->
 <tr>
-<td style="padding:35px">
+<td style="padding:25px 20px;">
 
-<table width="100%" cellpadding="10" cellspacing="0" style="font-size:15px">
+<table width="100%" cellpadding="5" cellspacing="0" style="font-size:14px;line-height:1.4;">
 
 <tr>
-<td style="color:#888;width:200px">Cliente</td>
-<td style="font-weight:600;color:#111">
-${data.nome || "Não informado"}
-</td>
+<td style="color:#888;width:180px">Cliente</td>
+<td style="font-weight:600;color:#111">${data.nome || "Não informado"}</td>
 </tr>
 
 <tr>
 <td style="color:#888">Data da visita</td>
-<td style="font-weight:600;color:#111">
-${data.data_visita || "Não informado"}
-</td>
+<td style="font-weight:600;color:#111">${data.data_visita || "Não informado"}</td>
 </tr>
 
 <tr>
 <td style="color:#888">Conheceu por</td>
-<td>${data.origem_cliente}</td>
+<td>${data.origem_cliente || "Não informado"}</td>
 </tr>
 
 <tr>
 <td style="color:#888">Frequência</td>
-<td>${data.frequencia}</td>
+<td>${data.frequencia || "Não informado"}</td>
 </tr>
 
 <tr>
 <td style="color:#888">Expectativa</td>
-<td>${data.expectativa}</td>
+<td>${data.expectativa || "Não informado"}</td>
+</tr>
+
+<tr>
+<td style="color:#888">Saída mensal</td>
+<td>${data.saida_mensal || "Não informado"}</td>
 </tr>
 
 </table>
@@ -77,33 +78,22 @@ ${data.data_visita || "Não informado"}
 
 <!-- SCORE -->
 <tr>
-<td style="padding:0 35px 30px 35px">
+<td style="padding:15px 20px">
 
 <div style="
-background:linear-gradient(135deg,#fafafa,#f1f1f1);
-border-radius:16px;
-padding:35px;
+background:#fafafa;
+border-radius:12px;
+padding:20px;
 text-align:center;
-border:1px solid #eee
+border:1px solid #eee;
 ">
 
-<p style="margin:0;color:#777;font-size:13px">
-Avaliação da experiência
-</p>
+<p style="margin:0;color:#777;font-size:12px;">Avaliação da experiência</p>
 
-<p style="
-margin:10px 0 0;
-font-size:46px;
-font-weight:700;
-color:#111;
-letter-spacing:-1px
-">
+<p style="margin:8px 0 0;font-size:36px;font-weight:700;color:#111;letter-spacing:-0.5px;">
 ${data.avaliacao}
 </p>
 
-<p style="margin:5px 0 0;font-size:12px;color:#999">
-Escala de 0 a 10
-</p>
 
 </div>
 
@@ -112,19 +102,17 @@ Escala de 0 a 10
 
 <!-- POSITIVOS -->
 <tr>
-<td style="padding:0 35px">
+<td style="padding:10px 20px">
 
-<h3 style="font-size:16px;margin-bottom:12px">
-👍 O que o cliente gostou
-</h3>
+<h3 style="font-size:15px;margin-bottom:8px">👍 O que o cliente gostou</h3>
 
 <div style="
 background:#f9fafb;
-padding:20px;
-border-radius:12px;
+padding:15px;
+border-radius:10px;
 border:1px solid #eee;
 color:#444;
-line-height:1.6
+line-height:1.5;
 ">
 ${data.positivos || "—"}
 </div>
@@ -134,19 +122,17 @@ ${data.positivos || "—"}
 
 <!-- MELHORIAS -->
 <tr>
-<td style="padding:25px 35px 35px 35px">
+<td style="padding:10px 20px 20px 20px">
 
-<h3 style="font-size:16px;margin-bottom:12px">
-⚠️ O que pode melhorar
-</h3>
+<h3 style="font-size:15px;margin-bottom:8px">⚠️ O que pode melhorar</h3>
 
 <div style="
 background:#f9fafb;
-padding:20px;
-border-radius:12px;
+padding:15px;
+border-radius:10px;
 border:1px solid #eee;
 color:#444;
-line-height:1.6
+line-height:1.5;
 ">
 ${data.melhorias || "—"}
 </div>
@@ -156,17 +142,9 @@ ${data.melhorias || "—"}
 
 <!-- FOOTER -->
 <tr>
-<td style="
-padding:28px;
-text-align:center;
-font-size:12px;
-color:#999;
-border-top:1px solid #eee
-">
-
+<td style="padding:15px 20px;text-align:center;font-size:11px;color:#999;border-top:1px solid #eee;line-height:1.4;">
 Sistema automático de feedback<br>
-Picasso Bar
-
+Picasso Restaurante • © 2026
 </td>
 </tr>
 
