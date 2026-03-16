@@ -20,36 +20,16 @@ export async function POST(req: Request) {
 
 <table width="640" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.08)">
 
-<!-- HEADER MODERNO -->
+<!-- HEADER -->
 <tr>
-<td style="
-background:linear-gradient(135deg,#ffffff,#f7f7f7);
-padding:30px;
-text-align:center;
-border-bottom:1px solid #eee
-">
+<td style="background:#111;padding:35px;text-align:center;color:white">
 
-<img 
-src="/logo-picasso.png" 
-width="140"
-style="display:block;margin:auto;margin-bottom:10px"
-/>
-
-<h1 style="
-margin:0;
-font-size:24px;
-color:#111;
-font-weight:600
-">
-Nova avaliação recebida
+<h1 style="margin:0;font-size:28px;font-weight:600">
+ ⭐ Nova avaliação recebida
 </h1>
 
-<p style="
-margin:6px 0 0;
-color:#777;
-font-size:13px
-">
-Feedback automático de clientes
+<p style="margin:8px 0 0;color:#bbb;font-size:13px">
+Picasso Bar • Feedback de clientes
 </p>
 
 </td>
@@ -185,7 +165,7 @@ border-top:1px solid #eee
 ">
 
 Sistema automático de feedback<br>
-Picasso Restaurante
+Picasso Bar
 
 </td>
 </tr>
@@ -201,7 +181,7 @@ Picasso Restaurante
     await transporter.sendMail({
         from: "Avaliações Picasso <giovanebruno100@gmail.com>",
         to: "calcisshoes@gmail.com",
-        subject: "🍸 Nova avaliação recebida",
+        subject: "⭐ Nova avaliação recebida",
         html: html
     });
 

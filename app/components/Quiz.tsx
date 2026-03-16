@@ -13,7 +13,7 @@ export default function Quiz() {
     const [step, setStep] = useState(0);
     const [mostrarCalendario, setMostrarCalendario] = useState(false);
     const [opcaoData, setOpcaoData] = useState("");
-    const totalSteps = 8;
+    const totalSteps = 10;
     const dateRef = useRef<HTMLInputElement | null>(null);
 
     const [respostas, setRespostas] = useState({
@@ -64,9 +64,9 @@ export default function Quiz() {
             respostas.avaliacao.includes("Excelente") ||
             respostas.avaliacao.includes("Muito bom")
         ) {
-            setStep(7); // tela Google
+            setStep(9); // tela Google
         } else {
-            setStep(8); // tela obrigado
+            setStep(10); // tela obrigado
         }
     }
 
@@ -119,7 +119,7 @@ export default function Quiz() {
                             <div className="space-y-4">
 
                                 <p className="text-gray-500 text-sm tracking-wide uppercase">
-                                    Sua opinião é importante
+                                    Sua opinião é muito importante para nós
                                 </p>
 
                                 <h1 className="text-3xl sm:text-4xl font-semibold leading-tight">
@@ -130,7 +130,7 @@ export default function Quiz() {
                                 </h1>
 
                                 <p className="text-gray-400 text-sm">
-                                    Leva menos de 2 minutos para responder.
+                                    Leva menos de 1 minuto para responder.
                                 </p>
 
                             </div>
@@ -140,7 +140,7 @@ export default function Quiz() {
                                 <div className="flex items-center gap-2 text-xs text-gray-400 bg-gray-50 px-4 py-2 rounded-full border border-gray-200">
                                     <span>⚡ 6 perguntas</span>
                                     <span>•</span>
-                                    <span>⏱ 2 minutos</span>
+                                    <span>⏱ menos de 1 minuto</span>
                                 </div>
 
                             </div>
@@ -321,31 +321,56 @@ export default function Quiz() {
 
                     {step === 2 && (
                         <Pergunta
-                            titulo="Com que frequência você vem ao Picasso?"
+                            titulo="Como ficou sabendo do Picasso?"
                             opcoes={[
-                                "🍸 Primeira vez",
-                                "🙂 Já vim algumas vezes",
-                                "🔥 Venho com frequência",
-                                "⭐ Sou cliente fiel"
+                                "Google",
+                                "Redes sociais",
+                                "Amigos/família",
+                                "Por acaso/Passava na frente"
+                            ]}
+                            responder={(r: string) => salvarResposta("origem_cliente", r)}
+                        />
+                    )}
+                    {step === 3 && (
+                        <Pergunta
+                            titulo="Com que frequência você vai ao Picasso?"
+                            opcoes={[
+                                "Primeira vez",
+                                "Já Fui algumas vezes",
+                                "Sou cliente regular"
                             ]}
                             responder={(r: string) => salvarResposta("frequencia", r)}
                         />
                     )}
 
-                    {step === 3 && (
+                    {step === 4 && (
                         <Pergunta
                             titulo="Antes de visitar, qual era sua expectativa?"
                             opcoes={[
-                                "✨ Lugar sofisticado",
-                                "🍹 Lugar moderno e animado",
-                                "🤔 Não sabia muito sobre o lugar",
-                                "👀 Vim por curiosidade"
+                                "Parecia estilizado e caro",
+                                "Parecia acessível",
+                                "Não tinha uma expectativa clara sobre preço ou sofisticação",
+                                "Fui por curiosidade"
                             ]}
                             responder={(r: string) => salvarResposta("expectativa", r)}
                         />
                     )}
 
-                    {step === 4 && (
+                    
+                    {step === 5 && (
+                        <Pergunta
+                            titulo="Com que frequência você sai para jantar fora ou para happy hour por mês?"
+                            opcoes={[
+                                "1 vez por semana",
+                                "2 a 3 vezes por semana",
+                                "1 a 2 vezes por mês",
+                                "Raramente / nunca"
+                            ]}
+                            responder={(r: string) => salvarResposta("saida_mensal", r)}
+                        />
+                    )}
+
+                    {step === 6 && (
                         <Pergunta
                             titulo="Como foi sua experiência?"
                             opcoes={[
@@ -359,7 +384,7 @@ export default function Quiz() {
                         />
                     )}
 
-                    {step === 5 && (
+                    {step === 7 && (
                         <PerguntaTexto
                             key="positivos"
                             titulo="Quais foram os pontos positivos?"
@@ -373,7 +398,7 @@ export default function Quiz() {
                         />
                     )}
 
-                    {step === 6 && (
+                    {step === 8 && (
                         <PerguntaTexto
                             key="melhorias"
                             titulo="Algo que podemos melhorar?"
@@ -381,7 +406,7 @@ export default function Quiz() {
                             loading={enviando}
                         />
                     )}
-                    {step === 7 && (
+                    {step === 9 && (
 
                         <motion.div
                             key="google"
@@ -420,13 +445,14 @@ export default function Quiz() {
 
                     )}
 
-                    {step === 8 && (
+                    {step === 10 && (
 
                         <motion.div
                             key="final"
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="text-center space-y-6 sm:space-y-8"
+                            initial={{ opacity: 0, y: 40 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                            className="text-center space-y-8"
                         >
 
                             <h1 className="text-3xl sm:text-4xl font-semibold">
@@ -437,17 +463,75 @@ export default function Quiz() {
                                 Seu feedback nos ajuda a melhorar a experiência no Picasso.
                             </p>
 
-                            <div className="border border-picasso-gold bg-picasso-gray p-6 sm:p-10 rounded-2xl space-y-4">
+                            {/* VOUCHER */}
+                            <motion.div
+                                initial={{ scale: 0.9 }}
+                                animate={{ scale: 1 }}
+                                transition={{ delay: 0.2 }}
+                                className="relative border border-picasso-gold bg-picasso-gray p-8 sm:p-10 rounded-2xl space-y-6 overflow-hidden"
+                            >
+
+                                {/* brilho animado */}
+                                <motion.div
+                                    animate={{ x: ["-120%", "120%"] }}
+                                    transition={{
+                                        repeat: Infinity,
+                                        duration: 4,
+                                        ease: "linear"
+                                    }}
+                                    className="absolute top-0 left-0 w-1/2 h-full bg-white/20 blur-2xl"
+                                />
+
+                                {/* DRINK ANIMADO */}
+                                <motion.div
+                                    animate={{
+                                        y: [0, -6, 0],
+                                        rotate: [0, -4, 4, 0]
+                                    }}
+                                    transition={{
+                                        repeat: Infinity,
+                                        duration: 2
+                                    }}
+                                    className="text-5xl"
+                                >
+                                    🍸
+                                </motion.div>
 
                                 <h2 className="text-xl sm:text-2xl text-picasso-gold font-semibold">
-                                    🍸 Drink Especial para Você
+                                    Drink Especial para Você
                                 </h2>
 
-                                <p className="text-gray-600">
-                                    Apresente esta tela ao garçom na próxima visita.
+                                <p className="text-gray-600 text-sm">
+                                    Tire um <strong>print desta tela</strong> e apresente ao garçom na próxima visita.
                                 </p>
 
-                            </div>
+                                {/* CARD DO VOUCHER */}
+                                <div className="bg-white border border-gray-200 rounded-xl p-5 text-sm text-gray-700 space-y-2 text-left shadow-sm">
+
+                                    <p>
+                                        <strong>Cliente:</strong> {respostas.nome || "Cliente"}
+                                    </p>
+
+                                    <p>
+                                        <strong>Data da visita:</strong> {respostas.data_visita || "Não informada"}
+                                    </p>
+
+                                    <p>
+                                        <strong>Voucher gerado em:</strong>{" "}
+                                        {new Date().toLocaleDateString("pt-BR")} às{" "}
+                                        {new Date().toLocaleTimeString("pt-BR", {
+                                            hour: "2-digit",
+                                            minute: "2-digit"
+                                        })}
+                                    </p>
+
+                                </div>
+
+                                <p className="text-xs text-gray-400">
+                                    Válido para 1 drink especial por cliente.
+                                </p>
+
+                            </motion.div>
 
                         </motion.div>
 
