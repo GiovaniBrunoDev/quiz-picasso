@@ -66,11 +66,11 @@ export default function Quiz() {
 
     return (
 
-        <div className="w-full flex justify-center px-4">
+        <div className="w-full min-h-[100dvh] flex items-center justify-center px-4">
 
             <motion.div
                 layout
-             className="w-[92vw] min-h-[60dvh] bg-white rounded-3xl shadow-2xl p-8 sm:p-12 flex flex-col items-center justify-center text-center"
+                className="w-[92vw] max-w-xl min-h-[60dvh] bg-white rounded-3xl shadow-2xl p-8 sm:p-12 flex flex-col items-center justify-center text-center"
             >
 
                 {step > 0 && step <= totalSteps && (
@@ -162,7 +162,7 @@ export default function Quiz() {
                                         nome: e.target.value
                                     }))
                                 }
-                               className="w-full border border-gray-200 p-4 rounded-xl text-base"
+                                className="w-full border border-gray-200 p-4 rounded-xl text-base"
                             />
 
                             <input
@@ -174,7 +174,7 @@ export default function Quiz() {
                                         data_visita: e.target.value
                                     }))
                                 }
-                               className="w-full border border-gray-200 p-4 rounded-xl text-base"
+                                className="w-full border border-gray-200 p-4 rounded-xl text-base"
                             />
 
                             <button
